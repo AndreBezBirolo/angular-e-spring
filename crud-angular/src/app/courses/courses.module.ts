@@ -2,7 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CoursesRoutingModule } from './courses-routing.module';
-import { CoursesComponent } from './courses/courses.component';
+import { MatTableModule } from "@angular/material/table";
+import { CoursesComponent } from "./courses/courses.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { SharedModule } from "../shared/shared.module";
+import { MatIconModule } from "@angular/material/icon";
 
 
 @NgModule({
@@ -11,7 +17,14 @@ import { CoursesComponent } from './courses/courses.component';
   ],
   imports: [
     CommonModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    MatTableModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    SharedModule,
+    MatIconModule
   ]
 })
-export class CoursesModule { }
+export class CoursesModule {
+}

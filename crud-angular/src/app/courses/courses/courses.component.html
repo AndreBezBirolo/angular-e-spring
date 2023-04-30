@@ -1,1 +1,32 @@
-<p>courses works!</p>
+<mat-card>
+  <mat-toolbar color="primary">
+    Cursos disponíveis
+  </mat-toolbar>
+  <ng-container *ngIf="coursesList$ | async as courses; else spinner">
+    <table [dataSource]="courses" class="mat-elevation-z8" mat-table>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell> Curso</th>
+        <td *matCellDef="let course" mat-cell> {{course.name}} </td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th *matHeaderCellDef mat-header-cell> Categoria</th>
+        <td *matCellDef="let course" mat-cell>
+          {{course.category}}
+          <mat-icon aria-hidden="false" aria-label="Ícone da categoria">{{ course.category | category }}</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+  </ng-container>
+  <ng-template #spinner>
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</mat-card>
