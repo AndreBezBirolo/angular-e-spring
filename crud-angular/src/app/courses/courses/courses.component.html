@@ -5,15 +5,21 @@
   <ng-container *ngIf="coursesList$ | async as courses; else spinner">
     <table [dataSource]="courses" class="mat-elevation-z8" mat-table>
 
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell>ID</th>
+        <td *matCellDef="let course" mat-cell> {{course._id}} </td>
+      </ng-container>
+
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell> Curso</th>
+        <th *matHeaderCellDef mat-header-cell>Curso</th>
         <td *matCellDef="let course" mat-cell> {{course.name}} </td>
       </ng-container>
 
       <!-- Category Column -->
       <ng-container matColumnDef="category">
-        <th *matHeaderCellDef mat-header-cell> Categoria</th>
+        <th *matHeaderCellDef mat-header-cell>Categoria</th>
         <td *matCellDef="let course" mat-cell>
           {{course.category}}
           <mat-icon aria-hidden="false" aria-label="Ícone da categoria">{{ course.category | category }}</mat-icon>
