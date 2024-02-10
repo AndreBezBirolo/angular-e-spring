@@ -4,7 +4,11 @@
   </mat-toolbar>
 
   <div class="flex-column mat-elevation-z8">
-    <app-courses-list *ngIf="coursesList$ | async as courses; else spinner" [courses]="courses"></app-courses-list>
+    <app-courses-list (add)="onAdd()"
+                      *ngIf="coursesList$ | async as courses; else spinner"
+                      [courses]="courses">
+
+    </app-courses-list>
     <ng-template #spinner>
       <div class="loading-spinner">
         <mat-spinner></mat-spinner>
