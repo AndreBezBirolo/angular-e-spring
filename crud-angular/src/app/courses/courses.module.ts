@@ -9,8 +9,8 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SharedModule } from "../shared/shared.module";
 import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
 import { CourseFormComponent } from './course-form/course-form.component';
+import { MatSelectModule } from "@angular/material/select";
 
 
 @NgModule({
@@ -27,7 +27,8 @@ import { CourseFormComponent } from './course-form/course-form.component';
     MatProgressSpinnerModule,
     SharedModule,
     MatIconModule,
-    MatButtonModule
+    MatSelectModule,
+
   ]
 })
 export class CoursesModule {
