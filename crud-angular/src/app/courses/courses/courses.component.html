@@ -2,54 +2,13 @@
   <mat-toolbar color="primary">
     Cursos disponíveis
   </mat-toolbar>
-  <ng-container *ngIf="coursesList$ | async as courses; else spinner">
-    <table [dataSource]="courses" class="mat-elevation-z8" mat-table>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th *matHeaderCellDef mat-header-cell>ID</th>
-        <td *matCellDef="let course" mat-cell> {{course._id}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>Curso</th>
-        <td *matCellDef="let course" mat-cell> {{course.name}} </td>
-      </ng-container>
-
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th *matHeaderCellDef mat-header-cell>Categoria</th>
-        <td *matCellDef="let course" mat-cell>
-          {{course.category}}
-          <mat-icon aria-hidden="false" aria-label="Ícone da categoria">{{ course.category | category }}</mat-icon>
-        </td>
-      </ng-container>
-
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>
-          <button aria-label="Adicionar um curso" color="accent" mat-mini-fab>
-            <mat-icon (click)="onAdd()">add</mat-icon>
-          </button>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let course">
-          <button aria-label="Editar curso" color="primary" mat-icon-button>
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button aria-label="Remover curso" color="warn" mat-icon-button>
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-
-      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-    </table>
-  </ng-container>
-  <ng-template #spinner>
-    <div class="loading-spinner">
-      <mat-spinner></mat-spinner>
-    </div>
-  </ng-template>
+  <div class="flex-column mat-elevation-z8">
+    <app-courses-list *ngIf="coursesList$ | async as courses; else spinner" [courses]="courses"></app-courses-list>
+    <ng-template #spinner>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
 </mat-card>

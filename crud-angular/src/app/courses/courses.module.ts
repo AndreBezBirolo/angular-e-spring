@@ -11,12 +11,14 @@ import { SharedModule } from "../shared/shared.module";
 import { MatIconModule } from "@angular/material/icon";
 import { CourseFormComponent } from './course-form/course-form.component';
 import { MatSelectModule } from "@angular/material/select";
+import { CoursesListComponent } from './courses-list/courses-list.component';
 
 
 @NgModule({
   declarations: [
     CoursesComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    CoursesListComponent
   ],
   imports: [
     CommonModule,

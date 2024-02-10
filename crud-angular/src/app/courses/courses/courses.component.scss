@@ -1,11 +1,19 @@
-table {
-  width: 100%;
-}
-
 .loading-spinner {
   padding: 25px 0;
   background: rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
 }

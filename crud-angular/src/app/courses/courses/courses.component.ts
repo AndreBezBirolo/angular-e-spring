@@ -14,13 +14,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 export class CoursesComponent implements OnInit {
   public coursesList$: Observable<Course[]>;
-  public displayedColumns: string[] = ['name', 'category', 'actions'];
 
   public constructor(
     private coursesService: CoursesService,
     private matDialog: MatDialog,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.coursesList$ = this.coursesService.getList()
       .pipe(
