@@ -33,12 +33,17 @@ export class CoursesService {
     }
   }
 
+  public remove(id: string): Observable<Object> {
+    return this.httpClient.delete(`${this.API}/${id}`)
+      .pipe(first());
+  }
+
   private create(course: Partial<Course>): Observable<Course> {
     return this.httpClient.post<Course>(this.API, course)
       .pipe(first());
   }
 
-  private update(course: Partial<Course>) {
+  private update(course: Partial<Course>): Observable<Course> {
     return this.httpClient.put<Course>(`${this.API}/${course._id}`, course)
       .pipe(first());
   }
