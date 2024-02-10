@@ -30,10 +30,10 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let course" class="actions-column">
       <button aria-label="Editar curso" color="primary" mat-icon-button>
-        <mat-icon>edit</mat-icon>
+        <mat-icon (click)="onEdit(course)">edit</mat-icon>
       </button>
       <button aria-label="Remover curso" color="warn" mat-icon-button>
-        <mat-icon>delete</mat-icon>
+        <mat-icon (click)="onDelete(course)">delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>

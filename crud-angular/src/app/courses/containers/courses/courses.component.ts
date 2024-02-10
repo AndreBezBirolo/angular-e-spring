@@ -34,8 +34,16 @@ export class CoursesComponent implements OnInit {
   }
 
   public onAdd(): void {
-    console.log('--- onAdd');
     this.router.navigate(['new'], {relativeTo: this.activatedRoute});
+  }
+
+  public onEdit(course: Course): void {
+    this.router.navigate(['edit', course._id], {relativeTo: this.activatedRoute});
+
+  }
+
+  public onDelete(): void {
+
   }
 
   private openErrorMsg(errorMsg: string) {
@@ -43,5 +51,4 @@ export class CoursesComponent implements OnInit {
       data: errorMsg,
     });
   }
-
 }

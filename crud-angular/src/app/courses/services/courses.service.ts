@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from "../model/course";
 import { HttpClient } from "@angular/common/http";
-import { first, Observable, tap } from "rxjs";
+import { first, Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +18,28 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.API)
       .pipe(
         first(),
-        // delay(3000),
-        tap({
-          next: courses => console.log('--- Log do CoursesService:', courses)
-        })
       );
   }
 
+  public getById(id: string): Observable<Course> {
+    return this.httpClient.get<Course>(`${this.API}/${id}`)
+  }
+
   public save(course: Partial<Course>): Observable<Course> {
-    console.log('--- save', course)
+    if (course._id) {
+      return this.update(course);
+    } else {
+      return this.create(course)
+    }
+  }
+
+  private create(course: Partial<Course>): Observable<Course> {
     return this.httpClient.post<Course>(this.API, course)
+      .pipe(first());
+  }
+
+  private update(course: Partial<Course>) {
+    return this.httpClient.put<Course>(`${this.API}/${course._id}`, course)
       .pipe(first());
   }
 }

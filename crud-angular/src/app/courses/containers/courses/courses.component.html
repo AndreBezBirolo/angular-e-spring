@@ -5,6 +5,8 @@
 
   <div class="flex-column mat-elevation-z8">
     <app-courses-list (add)="onAdd()"
+                      (delete)="onDelete()"
+                      (edit)="onEdit($event)"
                       *ngIf="coursesList$ | async as courses; else spinner"
                       [courses]="courses">
 
