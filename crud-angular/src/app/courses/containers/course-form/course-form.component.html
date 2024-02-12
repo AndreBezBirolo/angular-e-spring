@@ -7,6 +7,8 @@
     <form [formGroup]="form" class="min-width">
       <mat-form-field class="full-width">
         <input formControlName="name" matInput placeholder="Nome">
+        <mat-hint align="end">{{form.get('name')?.value?.length}}/100</mat-hint>
+        <mat-error *ngIf="form.get('name')?.invalid">{{getErrorMessage('name')}}</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Categoria</mat-label>
@@ -19,6 +21,8 @@
             Back-End
           </mat-option>
         </mat-select>
+        <mat-hint align="end">{{form.get('category')?.value?.length}}/25</mat-hint>
+        <mat-error *ngIf="form.get('category')?.invalid">{{getErrorMessage('category')}}</mat-error>
       </mat-form-field>
     </form>
   </mat-card-content>

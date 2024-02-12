@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from "@angular/forms";
+import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CoursesService } from "../../services/courses.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Location } from "@angular/common";
@@ -15,8 +15,8 @@ export class CourseFormComponent implements OnInit {
 
   public form = this.formBuilder.group({
     _id: [''],
-    name: [''],
-    category: ['']
+    name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+    category: ['', [Validators.required, Validators.maxLength(25)]]
   });
 
   constructor(private formBuilder: NonNullableFormBuilder,
@@ -29,7 +29,6 @@ export class CourseFormComponent implements OnInit {
   ngOnInit(): void {
     const course: Course = this.activatedRoute.snapshot.data['course'];
     if (course) {
-      console.log(course)
       // this.form.patchValue(course)
       this.form.patchValue({
         _id: course._id,
@@ -40,17 +39,38 @@ export class CourseFormComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log('--- onSubmit');
-    this.coursesService.save(this.form.value)
-      .subscribe({
-        next: (data) => this.onSuccess(),
-        error: (err) => this.onError(),
-      });
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+    } else {
+      this.coursesService.save(this.form.value)
+        .subscribe({
+          next: (data) => this.onSuccess(),
+          error: (err) => this.onError(),
+        });
+    }
   }
 
   public onCancel(): void {
-    console.log('--- onCancel');
     this.location.back();
+  }
+
+  public getErrorMessage(fieldName: string): string {
+    const field = this.form.get(fieldName);
+
+    if (field?.hasError('required')) {
+      return 'Esse campo é obrigatório.';
+    }
+    if (field?.hasError('minlength')) {
+      const requiredLength = field?.errors ? field.errors['minlength']['requiredLength'] : 5;
+      return 'O tamanho mínimo precisa ser de ' + requiredLength + ' caracteres.';
+    }
+
+    if (field?.hasError('maxlength')) {
+      const requiredLength = field?.errors ? field.errors['maxlength']['requiredLength'] : 100;
+      return 'O tamanho máximo precisa ser de até ' + requiredLength + ' caracteres.';
+    }
+
+    return 'Campo inválido.';
   }
 
   private onSuccess(): void {

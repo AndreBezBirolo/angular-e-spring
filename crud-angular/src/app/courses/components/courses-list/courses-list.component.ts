@@ -23,7 +23,6 @@ export class CoursesListComponent implements OnInit {
 
 
   public onAdd(): void {
-    console.log('--- onAdd');
     this.add.emit(true);
   }
 
