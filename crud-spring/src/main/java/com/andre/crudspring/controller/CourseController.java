@@ -22,7 +22,7 @@ public class CourseController {
     private final CourseRepository courseRepository;
 
     @GetMapping
-    public @ResponseBody List<Course> list() {
+    public List<Course> list() {
         return courseRepository.findAll();
     }
 
