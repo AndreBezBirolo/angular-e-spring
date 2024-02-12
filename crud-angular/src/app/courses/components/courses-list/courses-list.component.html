@@ -3,37 +3,38 @@
   <!-- ID Column -->
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-    <mat-cell *matCellDef="let course"> {{course._id}} </mat-cell>
+    <mat-cell *matCellDef="let course"> {{ course._id }}</mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>
-    <mat-cell *matCellDef="let course"> {{course.name}} </mat-cell>
+    <mat-cell *matCellDef="let course"> {{ course.name }}</mat-cell>
   </ng-container>
 
   <!-- Category Column -->
   <ng-container matColumnDef="category">
     <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
     <mat-cell *matCellDef="let course">
-      {{course.category}}
+      {{ course.category }}
       <mat-icon aria-hidden="false" aria-label="Ícone da categoria">{{ course.category | category }}</mat-icon>
     </mat-cell>
   </ng-container>
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="actions-column-header">
-      <button aria-label="Adicionar um curso" color="accent" mat-mini-fab>
-        <mat-icon (click)="onAdd()">add</mat-icon>
+    <mat-header-cell *matHeaderCellDef class="actions-column">
+      <button (click)="onAdd()" aria-label="Adicionar um curso" class="actions-column-header" color="accent"
+              mat-mini-fab>
+        <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
     <mat-cell *matCellDef="let course" class="actions-column">
-      <button aria-label="Editar curso" color="primary" mat-icon-button>
-        <mat-icon (click)="onEdit(course)">edit</mat-icon>
+      <button (click)="onEdit(course)" aria-label="Editar curso" color="primary" mat-icon-button>
+        <mat-icon>edit</mat-icon>
       </button>
-      <button aria-label="Remover curso" color="warn" mat-icon-button>
-        <mat-icon (click)="onDelete(course)">delete</mat-icon>
+      <button (click)="onDelete(course)" aria-label="Remover curso" color="warn" mat-icon-button>
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
