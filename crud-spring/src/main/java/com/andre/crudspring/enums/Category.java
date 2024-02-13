@@ -1,10 +1,5 @@
 package com.andre.crudspring.enums;
 
-import lombok.Getter;
-import lombok.ToString;
-
-@Getter
-@ToString
 public enum Category {
     BACK_END("back-end"),
     FRONT_END("front-end");
@@ -15,4 +10,14 @@ public enum Category {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

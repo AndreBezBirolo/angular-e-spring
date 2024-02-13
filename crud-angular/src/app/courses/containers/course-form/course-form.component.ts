@@ -84,7 +84,7 @@ export class CourseFormComponent implements OnInit {
     return this.formBuilder.group({
       _id: [lesson._id],
       name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      youtubeURL: [lesson.youtubeURL, [Validators.required, Validators.maxLength(11)]]
+      youtubeURL: [lesson.youtubeURL, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     })
   }
 
