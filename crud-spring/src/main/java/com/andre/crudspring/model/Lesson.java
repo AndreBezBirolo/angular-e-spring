@@ -17,7 +17,7 @@ public class Lesson {
     private String name;
 
     @Column(length = 11, nullable = false)
-    private String youtubeUrl;
+    private String youtubeURL;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "course_id", nullable = false)

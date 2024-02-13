@@ -49,9 +49,9 @@
             <mat-form-field class="full-width">
               <mat-label>URL da aula</mat-label>
               <span matPrefix>https://youtu.be/</span>
-              <input formControlName="youtubeUrl" matInput>
-              <mat-error *ngIf="getLessonsFormArray()[i].get('youtubeUrl')?.invalid">
-                {{ formUtils.getFormArrayFieldErrorMessage(form, 'lessons', 'youtubeUrl', i) }}
+              <input formControlName="youtubeURL" matInput>
+              <mat-error *ngIf="getLessonsFormArray()[i].get('youtubeURL')?.invalid">
+                {{ formUtils.getFormArrayFieldErrorMessage(form, 'lessons', 'youtubeURL', i) }}
               </mat-error>
             </mat-form-field>
           </td>
