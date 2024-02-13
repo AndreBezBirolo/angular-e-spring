@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from "@angular/forms";
 import { CoursesService } from "../../services/courses.service";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Course } from "../../model/course";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Lesson } from "../../model/lesson";
+import { FormUtilsService } from "../../../shared/form/form-utils.service";
 
 @Component({
   selector: 'app-course-form',
@@ -21,7 +22,8 @@ export class CourseFormComponent implements OnInit {
               private coursesService: CoursesService,
               private snackBar: MatSnackBar,
               private location: Location,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              public formUtils: FormUtilsService) {
   }
 
   ngOnInit(): void {
@@ -29,8 +31,8 @@ export class CourseFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       _id: [course._id],
       name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      category: [course.category, [Validators.required, Validators.maxLength(25)]],
-      lessons: this.formBuilder.array(this.getLessons(course))
+      category: [course.category, [Validators.required]],
+      lessons: this.formBuilder.array(this.getLessons(course), Validators.required)
     });
 
     console.log(this.form.value)
@@ -38,7 +40,7 @@ export class CourseFormComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.form.invalid) {
-      this.form.markAllAsTouched();
+      this.formUtils.validateAllFormFields(this.form);
     } else {
       this.coursesService.save(this.form.value)
         .subscribe({
@@ -52,23 +54,18 @@ export class CourseFormComponent implements OnInit {
     this.location.back();
   }
 
-  public getErrorMessage(fieldName: string): string {
-    const field = this.form.get(fieldName);
+  public getLessonsFormArray() {
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
+  }
 
-    if (field?.hasError('required')) {
-      return 'Esse campo é obrigatório.';
-    }
-    if (field?.hasError('minlength')) {
-      const requiredLength = field?.errors ? field.errors['minlength']['requiredLength'] : 5;
-      return 'O tamanho mínimo precisa ser de ' + requiredLength + ' caracteres.';
-    }
+  public addNewLesson(): void {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.push(this.createLesson());
+  }
 
-    if (field?.hasError('maxlength')) {
-      const requiredLength = field?.errors ? field.errors['maxlength']['requiredLength'] : 100;
-      return 'O tamanho máximo precisa ser de até ' + requiredLength + ' caracteres.';
-    }
-
-    return 'Campo inválido.';
+  public removeLesson(index: number): void {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.removeAt(index);
   }
 
   private getLessons(course: Course) {
@@ -86,8 +83,8 @@ export class CourseFormComponent implements OnInit {
   private createLesson(lesson: Lesson = {_id: '', name: '', youtubeURL: ''}) {
     return this.formBuilder.group({
       _id: [lesson._id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeURL]
+      name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      youtubeUrl: [lesson.youtubeURL, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     })
   }
 
