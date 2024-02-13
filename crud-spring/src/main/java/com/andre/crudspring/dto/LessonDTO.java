@@ -1,7 +1,7 @@
 package com.andre.crudspring.dto;
 
 public record LessonDTO(
-        Long id,
+        Long _id,
         String name,
         String youtubeURL
 ) {

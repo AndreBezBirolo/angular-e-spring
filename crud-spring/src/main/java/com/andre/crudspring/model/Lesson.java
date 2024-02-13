@@ -10,6 +10,7 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("_id")
     private Long id;
 
     @Column(length = 100, nullable = false)
