@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Course } from "../../model/course";
 import { CoursesService } from "../../services/courses.service";
-import { catchError, Observable, of } from "rxjs";
+import { catchError, Observable, of, tap } from "rxjs";
 import { ErrorDialogComponent } from "../../../shared/components/error-dialog/error-dialog.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -9,6 +9,8 @@ import {
 } from "../../../shared/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { CoursePage } from "../../model/course-page";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-courses',
@@ -17,7 +19,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 
 export class CoursesComponent implements OnInit {
-  public coursesList$: Observable<Course[]> | null = null;
+  public coursesList$: Observable<CoursePage> | null = null;
+  @ViewChild(MatPaginator)
+  public paginator!: MatPaginator;
+  public pageIndex = 0;
+  public pageSize = 10;
 
   public constructor(
     private coursesService: CoursesService,
@@ -64,12 +70,16 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  private refresh(): void {
-    this.coursesList$ = this.coursesService.getList()
+  public refresh(pageEvent: PageEvent = {length: 0, pageIndex: 0, pageSize: 10}): void {
+    this.coursesList$ = this.coursesService.getList(pageEvent.pageIndex, pageEvent.pageSize)
       .pipe(
+        tap(() => {
+          this.pageIndex = pageEvent.pageIndex
+          this.pageSize = pageEvent.pageSize;
+        }),
         catchError((error) => {
           this.openErrorMsg('Erro ao carregar cursos.')
-          return of([]);
+          return of({courses: [], totalElements: 0, totalPages: 0});
         })
       );
   }
