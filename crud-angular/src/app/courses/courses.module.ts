@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CoursesComponent } from "./containers/courses/courses.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { SharedModule } from "../shared/shared.module";
+
 import { MatIconModule } from "@angular/material/icon";
 import { CourseFormComponent } from './containers/course-form/course-form.component';
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
@@ -16,24 +16,20 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 
 
 @NgModule({
-  declarations: [
-    CoursesComponent,
-    CourseFormComponent,
-    CoursesListComponent
-  ],
-  imports: [
+    imports: [
     CommonModule,
     CoursesRoutingModule,
     MatTableModule,
     MatCardModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    SharedModule,
     MatIconModule,
     MatSelectModule,
     MatPaginatorModule,
-
-  ]
+    CoursesComponent,
+    CourseFormComponent,
+    CoursesListComponent,
+]
 })
 export class CoursesModule {
 }
